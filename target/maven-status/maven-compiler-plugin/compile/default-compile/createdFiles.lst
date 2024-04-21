@@ -1,1 +1,15 @@
+br/com/munizsoares/controller/CrudController.class
+br/com/munizsoares/entity/PedidoProduto.class
+br/com/munizsoares/service/ProdutoService.class
+br/com/munizsoares/dto/ProdutoDto.class
 br/com/munizsoares/DesafioJavaApplication.class
+br/com/munizsoares/repository/ProdutoRepository.class
+br/com/munizsoares/repository/PedidoRepository.class
+br/com/munizsoares/controller/PedidoController.class
+br/com/munizsoares/entity/Pedido.class
+br/com/munizsoares/controller/ProdutoController.class
+br/com/munizsoares/entity/Produto.class
+br/com/munizsoares/dto/PedidoDto.class
+br/com/munizsoares/dto/PedidoProdutoDto.class
+br/com/munizsoares/service/PedidoService.class
+br/com/munizsoares/repository/PedidoProdutoRepository.class

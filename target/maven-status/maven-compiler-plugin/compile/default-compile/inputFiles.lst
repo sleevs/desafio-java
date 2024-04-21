@@ -1,1 +1,15 @@
+/home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/controller/CrudController.java
+/home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/entity/PedidoProduto.java
+/home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/controller/PedidoController.java
+/home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/controller/ProdutoController.java
 /home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/DesafioJavaApplication.java
+/home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/service/PedidoService.java
+/home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/repository/PedidoProdutoRepository.java
+/home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/entity/Pedido.java
+/home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/dto/PedidoDto.java
+/home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/dto/PedidoProdutoDto.java
+/home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/repository/ProdutoRepository.java
+/home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/repository/PedidoRepository.java
+/home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/service/ProdutoService.java
+/home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/entity/Produto.java
+/home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/dto/ProdutoDto.java

@@ -19,6 +19,11 @@ public class ProdutoService {
    // this.produtoRepository= produtoRepository;
    // }
 
+   /*
+    - Cada produto deve ter um nome, preço e uma categoria 
+    (bebida, entrada, prato principal, sobremesa). 
+
+   */
 
     public Object salvarProduto(ProdutoDto dto){
         
@@ -40,12 +45,12 @@ public class ProdutoService {
         return result ;
     }
 
-    public List<Produto> buscarProdutos(){
+    public List<Produto> listarProdutos(){
         return produtoRepository.findAll();
 
     }
     
-    public Object encontarProduto(Long produtoId){
+    public Object buscarPorId(Long produtoId){
        
         if(produtoId != null){
         return produtoRepository.buscarProdutoPorId(produtoId);
@@ -53,12 +58,12 @@ public class ProdutoService {
         return "ID DO PRODUTO NÃO FOI INFORMADO" ;
     }
 
-    public Object encontarProdutoPorNome(String produtoNome){
+    public List<Produto> bucarPorCategoria(String categoria){
 
-        if(produtoNome != null && !produtoNome.isEmpty()){
-            return produtoRepository.buscarProdutoPorNome(produtoNome);
+        if(categoria != null && !categoria.isEmpty()){
+            return produtoRepository.buscarProdutoPorCategoria(categoria);
         }
-        return "Produto Não encontrado" ;
+        return null;
 
         }
 
@@ -68,18 +73,29 @@ public class ProdutoService {
             if(produtoId != null){
                Produto produto = produtoRepository.buscarProdutoPorId(produtoId);
                produtoRepository.delete(produto);
-               return "Produto foio deletado com sucesso!" ;
+               return "PRODUTO FOI DELETADO COM SUCESSO!" ;
             }
-            return "Produto Não encontrado" ;
+            return "PRODUTO NÃO ENCONTRADO" ;
         }
 
 
         public Object atuailizarProduto(ProdutoDto dto){
 
-            if(dto != null){
-                return salvarProduto(dto) ;
+            if(dto.getId() != null){
+                
+                Produto produtoUpdate = produtoRepository.buscarProdutoPorId(dto.getId());
+                if(dto.getCategoria() != null || !dto.getCategoria().isEmpty()){
+                    produtoUpdate.setCategoria(dto.getCategoria());
+                }
+                if(dto.getNome() != null || !dto.getNome().isEmpty()){
+                produtoUpdate.setNome(dto.getNome());
+                }
+                if(dto.getPreco() != null ){
+                produtoUpdate.setPreco(dto.getPreco());  
+                }              
+                return produtoRepository.save(produtoUpdate) ;
             }
-            return "Produto Não encontrado" ;
+            return "PRODUTO NÃO ENCONTRADO" ;
            
         }
 }
