@@ -21,5 +21,9 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 
     @Query(value ="select * from produto p where p.categoria =?1" , nativeQuery=true)
     public List<Produto> buscarProdutoPorCategoria(String categoria);
+
+
+    @Query(value ="select * from produto p where p.categoria =?1 && p.id =?2" , nativeQuery=true)
+    public List<Produto> buscarProdutoSelecionado(String categoria , Long id);
     
 }

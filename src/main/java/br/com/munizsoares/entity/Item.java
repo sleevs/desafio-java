@@ -1,13 +1,21 @@
-package br.com.munizsoares.dto;
+package br.com.munizsoares.entity;
 
-public class PedidoProdutoDto {
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 
+@Entity
+public class Item {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long produtoId;
     private Long pedidoId;
-    private Float preco ;
-    
-    public PedidoProdutoDto(){}
+    private Float subtotal ;
+
+    public Item(){}
 
     public Long getId() {
         return id;
@@ -33,14 +41,14 @@ public class PedidoProdutoDto {
         this.pedidoId = pedidoId;
     }
 
-    public Float getPreco() {
-        return preco;
+    public Float getSubtotal() {
+        return subtotal;
     }
 
-    public void setPreco(Float preco) {
-        this.preco = preco;
+    public void setSubtotal(Float subtotal) {
+        this.subtotal = subtotal;
     }
 
     
-
+    
 }

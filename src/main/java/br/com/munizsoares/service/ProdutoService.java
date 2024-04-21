@@ -30,17 +30,20 @@ public class ProdutoService {
         Produto produto = new Produto();
         
         if(dto.getCategoria() == null || dto.getCategoria().isEmpty()){
-        return "CATEGORIA DO PRODUTO NÃO FOI INFORMADA";
+            return "CATEGORIA DO PRODUTO NÃO FOI INFORMADA"; 
         }
         produto.setCategoria(dto.getCategoria());
+        
         if(dto.getNome() == null || dto.getNome().isEmpty()){
         return "NOME DO PRODUTO NÃO FOI INFORMADA"; 
         }
         produto.setNome(dto.getNome());
+        
         if(dto.getPreco() == null ){
         return "PREÇO DO PRODUTO NÃO FOI INFORMADO";
         }
         produto.setPreco(dto.getPreco());
+        
         var result = produtoRepository.save(produto);
         return result ;
     }
@@ -50,12 +53,13 @@ public class ProdutoService {
 
     }
     
-    public Object buscarPorId(Long produtoId){
+    public ProdutoDto buscarProduto(Long produtoId){
        
         if(produtoId != null){
-        return produtoRepository.buscarProdutoPorId(produtoId);
+        Produto produto = produtoRepository.buscarProdutoPorId(produtoId);
+        return transformar(produto);
         }
-        return "ID DO PRODUTO NÃO FOI INFORMADO" ;
+        return  null ;
     }
 
     public List<Produto> bucarPorCategoria(String categoria){
@@ -97,5 +101,48 @@ public class ProdutoService {
             }
             return "PRODUTO NÃO ENCONTRADO" ;
            
+        }
+
+
+
+        public ProdutoDto transformar(Produto produto){
+
+            ProdutoDto produtoDto = new ProdutoDto();
+
+            if(produto.getId() != null ){
+                produtoDto.setId(produto.getId());
+                }
+
+            if(produto.getCategoria() != null || !produto.getCategoria().isEmpty()){
+            produtoDto.setCategoria(produto.getCategoria());
+            }
+        
+            if(produto.getNome() != null || !produto.getNome().isEmpty()){
+                produtoDto.setNome(produto.getNome());
+            }
+        
+            if(produto.getPreco() != null ){
+                produtoDto.setPreco(produto.getPreco());
+            }
+                return produtoDto;
+        }
+
+
+        public Produto transformar(ProdutoDto dto){
+
+            Produto produto = new Produto();
+            
+            if(dto.getCategoria() != null || !dto.getCategoria().isEmpty()){
+            produto.setCategoria(dto.getCategoria());
+            }
+        
+            if(dto.getNome() != null || !dto.getNome().isEmpty()){
+            produto.setNome(dto.getNome());
+            }
+        
+            if(dto.getPreco() != null ){
+                produto.setPreco(dto.getPreco());
+            }
+                return produto;
         }
 }

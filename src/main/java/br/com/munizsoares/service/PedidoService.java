@@ -1,13 +1,9 @@
 package br.com.munizsoares.service;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import br.com.munizsoares.dto.PedidoDto;
 import br.com.munizsoares.entity.Pedido;
-import br.com.munizsoares.entity.PedidoProduto;
-import br.com.munizsoares.entity.Produto;
-import br.com.munizsoares.repository.PedidoProdutoRepository;
 import br.com.munizsoares.repository.PedidoRepository;
 
 @Service
@@ -16,9 +12,11 @@ public class PedidoService {
     @Autowired
     private PedidoRepository pedidoRepository;
 
-    @Autowired
-    private PedidoProdutoRepository pedidoProdutoRepository;
+    public PedidoDto salvarPedido(Pedido entity){
 
+        return transformar(pedidoRepository.save(entity));
+      
+    }
     /*
      
     - Cada pedido deve conter um ou mais produtos e o valor total do pedido.
@@ -30,65 +28,64 @@ public class PedidoService {
     
       Criar e listar pedidos.
     */
-    public Object criarPedido(List<Produto> produtos ){
-    
-        Pedido pedido = new Pedido();
-        var pedidoAtual = pedidoRepository.save(pedido);
-        List<PedidoProduto> carrinhoProdutos = new ArrayList<PedidoProduto>();
-    
-        if(pedidoAtual != null){
-      
-        for(Produto produto : produtos){
-            
-            PedidoProduto pedidoProduto = new PedidoProduto();
+ 
 
-            pedidoProduto.setPedidoId(pedidoAtual.getId());
-            pedidoProduto.setProdutoId(produto.getId());
-            pedidoProduto.setPreco(produto.getPreco());
-            
-            Float valorTotal = pedidoAtual.getValorTotal() + produto.getPreco();
-            pedidoAtual.setValorTotal(valorTotal);
-            pedidoRepository.save(pedidoAtual);
 
-            carrinhoProdutos.add(pedidoProdutoRepository.save(pedidoProduto));
+   
+
+
+       public PedidoDto buscarPedido(Long id){
+
+        if(id != null){
+            Pedido pedido = pedidoRepository.buscarPedidoPorId(id);
+            return transformar(pedido);
         }
-             return carrinhoProdutos;
-       
+        return null;    
+
        }
 
-        return null;
+
+
+
+
+       public Pedido atuailizarPedido(PedidoDto dto){
+            
+            Pedido pedidoUpdate = pedidoRepository.buscarPedidoPorId(dto.getId());
+            if(dto.getId() != null ){
+                pedidoUpdate.setId(dto.getId());
+            }
+            if(dto.getValorTotal() != null){
+                pedidoUpdate.setValorTotal(dto.getValorTotal());
+            }
+                         
+            return pedidoRepository.save(pedidoUpdate) ;
+        
+         }
+
+
+
+    public Pedido transformar(PedidoDto dto){
+
+        Pedido pedido = new Pedido();
+        if(dto.getValorTotal() != null){
+            pedido.setValorTotal(dto.getValorTotal());
+        }
+
+        return pedido;
     }
 
+    public PedidoDto transformar(Pedido entity){
 
-     /*
-     Implementar a funcionalidade de adicionar produtos a um pedido. 
-    */
-    public Object addProduto(List<Produto> produtos , Long pedidoId){
-    
-        Pedido pedido = pedidoRepository.buscarPedidoPorId(pedidoId);
-        List<PedidoProduto> carrinhoProdutos = new ArrayList<PedidoProduto>();
-    
-        if(pedido != null){
-      
-        for(Produto produto : produtos){
-            
-            PedidoProduto pedidoProduto = new PedidoProduto();
-
-            pedidoProduto.setPedidoId(pedido.getId());
-            pedidoProduto.setProdutoId(produto.getId());
-            pedidoProduto.setPreco(produto.getPreco());
-
-            Float valorTotal = pedido.getValorTotal() + produto.getPreco();
-            pedido.setValorTotal(valorTotal);
-            pedidoRepository.save(pedido);
-
-            carrinhoProdutos.add(pedidoProdutoRepository.save(pedidoProduto));
+        PedidoDto dto = new PedidoDto();
+        if(entity.getId() != null){
+            dto.setId(entity.getId());
         }
-             return carrinhoProdutos;
-       
-       }
 
-        return null;
+        if(entity.getValorTotal() != null){
+            dto.setValorTotal(entity.getValorTotal());
+        }
+
+        return dto;
     }
     
 }
