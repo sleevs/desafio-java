@@ -11,8 +11,8 @@ public class PedidoProduto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long produto_id;
-    private Long pedido_id;
+    private Long produtoId;
+    private Long pedidoId;
     private Float preco ;
 
     public PedidoProduto(){}
@@ -25,20 +25,20 @@ public class PedidoProduto {
         this.id = id;
     }
 
-    public Long getProduto_id() {
-        return produto_id;
+    public Long getProdutoId() {
+        return produtoId;
     }
 
-    public void setProduto_id(Long produto_id) {
-        this.produto_id = produto_id;
+    public void setProdutoId(Long produtoId) {
+        this.produtoId = produtoId;
     }
 
-    public Long getPedido_id() {
-        return pedido_id;
+    public Long getPedidoId() {
+        return pedidoId;
     }
 
-    public void setPedido_id(Long pedido_id) {
-        this.pedido_id = pedido_id;
+    public void setPedidoId(Long pedidoId) {
+        this.pedidoId = pedidoId;
     }
 
     public Float getPreco() {
