@@ -6,10 +6,13 @@
 /home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/dto/PedidoDto.java
 /home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/dto/ItemDto.java
 /home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/repository/ProdutoRepository.java
+/home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/security/SecurityConfig.java
 /home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/util/Constante.java
 /home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/dto/ProdutoDto.java
+/home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/security/SecurityToken.java
 /home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/service/ClienteService.java
 /home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/controller/ClienteController.java
+/home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/security/SecurityFilter.java
 /home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/repository/ClienteRepository.java
 /home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/entity/Item.java
 /home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/controller/ProdutoController.java
@@ -19,7 +22,6 @@
 /home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/util/Transformar.java
 /home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/util/PoliticaSeguranca.java
 /home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/repository/ItemRepository.java
-/home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/config/SecurityConfig.java
 /home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/repository/PedidoRepository.java
 /home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/service/ProdutoService.java
 /home/jsn/Desktop/Dev/java/desafio-java/src/main/java/br/com/munizsoares/entity/Produto.java

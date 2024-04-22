@@ -12,12 +12,7 @@ import java.util.logging.Logger;
 @Service
 public class ClienteService implements Transformar<Cliente, ClienteDto>{
     private static final Logger LOGGER = Logger.getLogger(ClienteService.class.getName());
-    /*
-     LOGGER.info("Isso é uma mensagem de informação.");
-     LOGGER.warning("Isso é uma mensagem de aviso.");
-     LOGGER.severe("Isso é uma mensagem de erro.");
-     * 
-    */
+   
     @Autowired
     private ClienteRepository clienteRepository;
 

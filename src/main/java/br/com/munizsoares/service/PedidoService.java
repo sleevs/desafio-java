@@ -5,16 +5,17 @@ import org.springframework.stereotype.Service;
 import br.com.munizsoares.dto.PedidoDto;
 import br.com.munizsoares.entity.Pedido;
 import br.com.munizsoares.repository.PedidoRepository;
+import br.com.munizsoares.util.Transformar;
 
 @Service
-public class PedidoService {
+public class PedidoService implements Transformar<Pedido , PedidoDto>{
     
     @Autowired
     private PedidoRepository pedidoRepository;
 
     public PedidoDto salvarPedido(Pedido entity){
 
-        return transformar(pedidoRepository.save(entity));
+        return transformarDto(pedidoRepository.save(entity));
       
     }
     /*
@@ -34,7 +35,7 @@ public class PedidoService {
 
         if(id != null){
             Pedido pedido = pedidoRepository.buscarPedidoPorId(id);
-            return transformar(pedido);
+            return transformarDto(pedido);
         }
         return null;    
 
@@ -60,7 +61,11 @@ public class PedidoService {
 
 
 
-    public Pedido transformar(PedidoDto dto){
+  
+ 
+
+    @Override
+    public Pedido transformarEntity(PedidoDto dto) {
 
         Pedido pedido = new Pedido();
         if(dto.getValorTotal() != null){
@@ -73,7 +78,8 @@ public class PedidoService {
         return pedido;
     }
 
-    public PedidoDto transformar(Pedido entity){
+    @Override
+    public PedidoDto transformarDto(Pedido entity) {
 
         PedidoDto dto = new PedidoDto();
         if(entity.getId() != null){

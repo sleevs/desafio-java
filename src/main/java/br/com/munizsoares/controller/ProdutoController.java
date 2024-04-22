@@ -1,6 +1,10 @@
 package br.com.munizsoares.controller;
 
 import java.util.List;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -69,8 +73,9 @@ public class ProdutoController {
         }
     }
 
+  
     @GetMapping(value="/listar")
-    public ResponseEntity<List<Produto>> listar(){
+    public ResponseEntity<List<Produto>> listarProdutos() {
         
         return ResponseEntity.ok(produtoService.listarProdutos());
     }

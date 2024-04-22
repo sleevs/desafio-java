@@ -1,22 +1,22 @@
 package br.com.munizsoares.security;
 
 import java.time.Instant;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-
 import br.com.munizsoares.entity.Cliente;
+import br.com.munizsoares.util.Constante;
 
 @Service
 public class SecurityToken {
+    
+     private static final Logger LOGGER = Logger.getLogger(SecurityToken.class.getName());
     
     @Value("${api.security.token.secret}")
     private String secret;
@@ -31,7 +31,8 @@ public class SecurityToken {
                                .sign(algorithm);     
             return token ;
         }catch(JWTCreationException e){
-            throw new RuntimeException("ERRO AO GERAR O TOKEN  ", e);
+            LOGGER.warning(Constante.ERRO_TOKEN.getValor());
+            throw new RuntimeException(Constante.ERRO_TOKEN.getValor(), e);
         }
     }
 
@@ -52,6 +53,7 @@ public class SecurityToken {
                            .getSubject();
 
         }catch(JWTVerificationException e){
+            LOGGER.warning(Constante.ERRO_VERIFICACAO_JWT.getValor().concat(e.getMessage()));
             return "";
         }
     }

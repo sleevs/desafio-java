@@ -1,6 +1,7 @@
 br/com/munizsoares/dto/ClienteDto.class
 br/com/munizsoares/util/PoliticaSeguranca.class
 br/com/munizsoares/service/ProdutoService.class
+br/com/munizsoares/security/SecurityToken.class
 br/com/munizsoares/service/AuthorizationService.class
 br/com/munizsoares/DesafioJavaApplication.class
 br/com/munizsoares/repository/ProdutoRepository.class
@@ -19,8 +20,9 @@ br/com/munizsoares/util/Constante.class
 br/com/munizsoares/controller/AuthenticationController.class
 br/com/munizsoares/dto/ProdutoDto.class
 br/com/munizsoares/repository/ClienteRepository.class
+br/com/munizsoares/security/SecurityFilter.class
 br/com/munizsoares/entity/Pedido.class
 br/com/munizsoares/service/ItemService.class
 br/com/munizsoares/entity/Item.class
 br/com/munizsoares/controller/ClienteController.class
-br/com/munizsoares/config/SecurityConfig.class
+br/com/munizsoares/security/SecurityConfig.class

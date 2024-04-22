@@ -1,64 +1,67 @@
 package br.com.munizsoares.service;
 
 import java.util.List;
+import java.util.logging.Logger;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import br.com.munizsoares.dto.ProdutoDto;
 import br.com.munizsoares.entity.Produto;
 import br.com.munizsoares.repository.ProdutoRepository;
+import br.com.munizsoares.util.Constante;
+import br.com.munizsoares.util.Transformar;
 
 @Service
-public class ProdutoService {
+public class ProdutoService implements Transformar<Produto , ProdutoDto> {
+
+     private static final Logger LOGGER = Logger.getLogger(ProdutoService.class.getName());
+   
 
     @Autowired
     private ProdutoRepository produtoRepository;
 
-   // public ProdutoService(ProdutoRepository produtoRepository){
-   // this.produtoRepository= produtoRepository;
-   // }
 
-   /*
-    - Cada produto deve ter um nome, preço e uma categoria 
-    (bebida, entrada, prato principal, sobremesa). 
-
-   */
 
     public Object salvarProduto(ProdutoDto dto){
         
         Produto produto = new Produto();
         
         if(dto.getCategoria() == null || dto.getCategoria().isEmpty()){
-            return "CATEGORIA DO PRODUTO NÃO FOI INFORMADA"; 
+            return Constante.CATEGORIA_PRODUTO_NAO_INFORMADA.getValor(); 
         }
         produto.setCategoria(dto.getCategoria());
         
         if(dto.getNome() == null || dto.getNome().isEmpty()){
-        return "NOME DO PRODUTO NÃO FOI INFORMADA"; 
+        return Constante.NOME_PRODUTO_NAO_INFORMADO.getValor(); 
         }
         produto.setNome(dto.getNome());
         
         if(dto.getPreco() == null ){
-        return "PREÇO DO PRODUTO NÃO FOI INFORMADO";
+        return Constante.PRECO_PRODUTO_NAO_INFORMADO.getValor(); 
         }
         produto.setPreco(dto.getPreco());
         
         var result = produtoRepository.save(produto);
+        LOGGER.info(Constante.PRODUTO_REGISTRADO.getValor());
         return result ;
     }
 
-    public List<Produto> listarProdutos(){
-        return produtoRepository.findAll();
+        public List<Produto> listarProdutos(){
+            return produtoRepository.findAll();
+        }
 
-    }
     
     public ProdutoDto buscarProduto(Long produtoId){
        
         if(produtoId != null){
         Produto produto = produtoRepository.buscarProdutoPorId(produtoId);
-        return transformar(produto);
+        return transformarDto(produto);
         }
+        LOGGER.info(Constante.PRODUTO_NAO_ENCONTRADO.getValor());
         return  null ;
     }
 
@@ -67,6 +70,7 @@ public class ProdutoService {
         if(categoria != null && !categoria.isEmpty()){
             return produtoRepository.buscarProdutoPorCategoria(categoria);
         }
+        LOGGER.info(Constante.CATEGORIA_NAO_ENCONTRADO.getValor());
         return null;
 
         }
@@ -77,9 +81,9 @@ public class ProdutoService {
             if(produtoId != null){
                Produto produto = produtoRepository.buscarProdutoPorId(produtoId);
                produtoRepository.delete(produto);
-               return "PRODUTO FOI DELETADO COM SUCESSO!" ;
+               return Constante.PRODUTO_DELETADO.getValor() ;
             }
-            return "PRODUTO NÃO ENCONTRADO" ;
+            return Constante.PRODUTO_NAO_ENCONTRADO.getValor() ;
         }
 
 
@@ -99,37 +103,19 @@ public class ProdutoService {
                 }              
                 return produtoRepository.save(produtoUpdate) ;
             }
-            return "PRODUTO NÃO ENCONTRADO" ;
+            return Constante.PRODUTO_NAO_ENCONTRADO.getValor() ;
            
         }
 
 
 
-        public ProdutoDto transformar(Produto produto){
-
-            ProdutoDto produtoDto = new ProdutoDto();
-
-            if(produto.getId() != null ){
-                produtoDto.setId(produto.getId());
-                }
-
-            if(produto.getCategoria() != null || !produto.getCategoria().isEmpty()){
-            produtoDto.setCategoria(produto.getCategoria());
-            }
-        
-            if(produto.getNome() != null || !produto.getNome().isEmpty()){
-                produtoDto.setNome(produto.getNome());
-            }
-        
-            if(produto.getPreco() != null ){
-                produtoDto.setPreco(produto.getPreco());
-            }
-                return produtoDto;
-        }
 
 
-        public Produto transformar(ProdutoDto dto){
+     
 
+        @Override
+        public Produto transformarEntity(ProdutoDto dto) {
+            
             Produto produto = new Produto();
             
             if(dto.getCategoria() != null || !dto.getCategoria().isEmpty()){
@@ -144,5 +130,28 @@ public class ProdutoService {
                 produto.setPreco(dto.getPreco());
             }
                 return produto;
+        
+        }
+
+        @Override
+        public ProdutoDto transformarDto(Produto entity) {
+            ProdutoDto produtoDto = new ProdutoDto();
+
+            if(entity.getId() != null ){
+                produtoDto.setId(entity.getId());
+                }
+
+            if(entity.getCategoria() != null || !entity.getCategoria().isEmpty()){
+            produtoDto.setCategoria(entity.getCategoria());
+            }
+        
+            if(entity.getNome() != null || !entity.getNome().isEmpty()){
+                produtoDto.setNome(entity.getNome());
+            }
+        
+            if(entity.getPreco() != null ){
+                produtoDto.setPreco(entity.getPreco());
+            }
+                return produtoDto;
         }
 }
