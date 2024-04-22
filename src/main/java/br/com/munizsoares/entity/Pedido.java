@@ -12,6 +12,7 @@ public class Pedido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Float valorTotal;
+    private Long clienteId;
 
     public Pedido(){
 
@@ -27,6 +28,12 @@ public class Pedido {
     }
     public void setValorTotal(Float valorTotal) {
         this.valorTotal = valorTotal;
+    }
+    public Long getClienteId() {
+        return clienteId;
+    }
+    public void setClienteId(Long clienteId) {
+        this.clienteId = clienteId;
     }
 
     

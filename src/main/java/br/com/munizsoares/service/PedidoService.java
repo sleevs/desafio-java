@@ -30,10 +30,6 @@ public class PedidoService {
     */
  
 
-
-   
-
-
        public PedidoDto buscarPedido(Long id){
 
         if(id != null){
@@ -68,6 +64,9 @@ public class PedidoService {
 
         Pedido pedido = new Pedido();
         if(dto.getValorTotal() != null){
+            pedido.setValorTotal(dto.getValorTotal());
+        }
+        if(dto != null){
             pedido.setValorTotal(dto.getValorTotal());
         }
 
