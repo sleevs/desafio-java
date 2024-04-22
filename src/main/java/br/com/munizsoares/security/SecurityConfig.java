@@ -27,6 +27,7 @@ public class SecurityConfig {
         .csrf(x -> x.disable())
         .sessionManagement(s -> s.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
         .authorizeHttpRequests(a -> a
+        .requestMatchers(HttpMethod.GET , "/produto/listar").permitAll()
         .requestMatchers(HttpMethod.POST , "/security/login").permitAll()
         .requestMatchers(HttpMethod.POST , "/security/novo").permitAll()
         .requestMatchers(HttpMethod.POST, "/produto/novo").hasRole("ADMIN")

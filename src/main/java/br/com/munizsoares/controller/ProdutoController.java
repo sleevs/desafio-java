@@ -1,10 +1,6 @@
 package br.com.munizsoares.controller;
 
 import java.util.List;
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.munizsoares.dto.ProdutoDto;
 import br.com.munizsoares.entity.Produto;
 import br.com.munizsoares.service.ProdutoService;
+import io.swagger.v3.oas.annotations.Operation;
 
 
 @RestController
@@ -30,6 +27,7 @@ public class ProdutoController {
     this.produtoService = produtoService;
     }
 
+    @Operation(summary="API responsável pelo registro de produtos no sistema")
     @PostMapping("/novo")
     public ResponseEntity<Object> novoProduto(
         @RequestParam("categoria") String  categoria,
@@ -49,6 +47,7 @@ public class ProdutoController {
         }
     }
 
+    @Operation(summary="API responsável pela buscar de produtos registrados no sistema a partir de ID de registro")
     @GetMapping("/buscar")
     public ResponseEntity<ProdutoDto> buscar(@RequestParam("id")  Long produtoId){
         
@@ -57,29 +56,19 @@ public class ProdutoController {
             return  ResponseEntity.ok(produtoService.buscarProduto(produtoId));
           
         }catch(Exception e){
-            return null;
-        }
-    }
-
-    @GetMapping("/categoria")
-    public ResponseEntity<List<Produto>> buscarCategoria(@RequestParam("categoria")  String produtoCategoria){
-        
-        try{
-         
-            return  ResponseEntity.ok(produtoService.bucarPorCategoria(produtoCategoria));
-          
-        }catch(Exception e){
-            return new ResponseEntity<List<Produto>>((List<Produto>) e , HttpStatus.BAD_REQUEST);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
 
   
+    @Operation(summary="API responsável por listar um catálogo de  produtos registrados no sistemas - Após realizar a vizualização do catálogo fica mais simple realizar busca a partir do ID do produto")
     @GetMapping(value="/listar")
     public ResponseEntity<List<Produto>> listarProdutos() {
         
         return ResponseEntity.ok(produtoService.listarProdutos());
     }
 
+    @Operation(summary="API responsável pela atualização de produto")
     @PutMapping("/atualizar")
     public ResponseEntity<Object> atualizar(
     @RequestParam("id") Long  id,
@@ -101,6 +90,7 @@ public class ProdutoController {
         }
     }
 
+    @Operation(summary="API responsável pela exclusão de produtos registrados no sistema a partir do ID do produto")
     @DeleteMapping("/deletar")
     public ResponseEntity<Object> deletar(@RequestParam("id") Long produtoId){
         try{

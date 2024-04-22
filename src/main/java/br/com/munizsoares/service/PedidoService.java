@@ -18,18 +18,7 @@ public class PedidoService implements Transformar<Pedido , PedidoDto>{
         return transformarDto(pedidoRepository.save(entity));
       
     }
-    /*
-     
-    - Cada pedido deve conter um ou mais produtos e o valor total do pedido.
-    - Implementar a funcionalidade de adicionar produtos a um pedido.
-     * 
-    */
-
-    /*
     
-      Criar e listar pedidos.
-    */
- 
 
        public PedidoDto buscarPedido(Long id){
 

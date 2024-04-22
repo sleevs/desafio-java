@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import br.com.munizsoares.dto.ItemDto;
+import br.com.munizsoares.dto.PedidoDto;
 import br.com.munizsoares.service.ItemService;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import br.com.munizsoares.service.PedidoService;
+import io.swagger.v3.oas.annotations.Operation;
 
 
 @Controller
@@ -21,20 +23,15 @@ public class PedidoController {
     
     @Autowired
     private ItemService itemService;
-    /*
-      Cada pedido deve conter um ou mais produtos e o valor total do pedido.
-    */
-    @PostMapping("/pedido")
-    public ResponseEntity<Object> novoPedido(
-        @RequestParam ("produtos") List<Long> ids
+
+    @Autowired
+    private PedidoService pedidoService;
     
-        ){
-        
-        return null ;
-    }
+
+    
 
 
-    /*adicionar produto a um pedido*/ 
+    @Operation(summary="API responsável pela realização de pedido e a inclusão de produtos no pedido")
     @PostMapping("/add_produto")
     public ResponseEntity<List<ItemDto>> adicionarProduto(
         @RequestParam ("produtos") List<Long> ids){
@@ -43,13 +40,20 @@ public class PedidoController {
          return  ResponseEntity.ok(itemService.addProduto(ids));
           
         }catch(Exception e){
-            return new ResponseEntity<List<ItemDto>>((List<ItemDto>) e , HttpStatus.BAD_REQUEST);
-        }
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    
+              }
     }
 
+    @Operation(summary="API responsável pela realização de consulta de pedido a partir do ID do pedido")
     @GetMapping("/buscar_pedidos")
-    public ResponseEntity<Object> buscarPedidos(@RequestBody Object produto){
-        
-        return null ;
-    }
+    public ResponseEntity<PedidoDto> buscarPedidos(@RequestParam ("id")Long pedidoId){
+        try{
+            return  ResponseEntity.ok(pedidoService.buscarPedido(pedidoId));
+             
+           }catch(Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    
+              }
+       }
 }

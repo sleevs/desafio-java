@@ -16,6 +16,7 @@ import br.com.munizsoares.entity.Cliente;
 import br.com.munizsoares.repository.ClienteRepository;
 import br.com.munizsoares.security.SecurityToken;
 import br.com.munizsoares.util.PoliticaSeguranca;
+import io.swagger.v3.oas.annotations.Operation;
 
 @Controller
 @RequestMapping("security")
@@ -28,25 +29,9 @@ public class AuthenticationController {
     @Autowired
     private SecurityToken securityToken;
 
-    @PostMapping("/login")
-    public ResponseEntity<Object> logar(
-        @RequestParam("email") String  email,
-        @RequestParam("senha") String  senha){
-          
-        
-        try{
-            UsernamePasswordAuthenticationToken userPassword = new UsernamePasswordAuthenticationToken(email, senha);
-            Authentication authenticationUsuario = authenticationManager.authenticate(userPassword);
-            String token = securityToken.generateToken((Cliente ) authenticationUsuario.getPrincipal());
-           
-            return  ResponseEntity.ok(token);
-          
-        } catch (AuthenticationException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Falha na autenticação: " + e.getMessage());
-        }
-    }
+ 
 
-
+    @Operation(summary="API responsável por cadastro de usuários - É necessário realizarção de cadastro para poder utilizar as funcionalidades do sistemas")
     @PostMapping("/novo")
     public ResponseEntity<Object> novoUsuario(
         @RequestParam("email") String  email,
@@ -74,4 +59,27 @@ public class AuthenticationController {
         }
     }
     
+
+
+
+    @Operation(summary="API responsável pelo login de usuário - Somente após o caastro de usuário é possível logar no sistema")
+    @PostMapping("/login")
+    public ResponseEntity<Object> logar(
+        @RequestParam("email") String  email,
+        @RequestParam("senha") String  senha){
+          
+        
+        try{
+            UsernamePasswordAuthenticationToken userPassword = new UsernamePasswordAuthenticationToken(email, senha);
+            Authentication authenticationUsuario = authenticationManager.authenticate(userPassword);
+            String token = securityToken.generateToken((Cliente ) authenticationUsuario.getPrincipal());
+           
+            return  ResponseEntity.ok(token);
+          
+        } catch (AuthenticationException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Falha na autenticação: " + e.getMessage());
+        }
+    }
+
+
 }
